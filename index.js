@@ -67,7 +67,7 @@ class ConfirmHcaptcha extends PureComponent {
     return (
       <BottomSheetModal
           ref={this.ref}
-          backdropComponent={renderBackdrop}
+          backdropComponent={this.renderBackdrop}
       >
         <BottomSheetView>
           <Hcaptcha
