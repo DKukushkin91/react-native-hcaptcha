@@ -7,7 +7,7 @@ module.exports = {
     "node_modules/(?!(react-native"
       + "|@react-native"
       + "|@hcaptcha"
-      + "|react-native-modal"
+      + "|@gorhom"
       + "|react-native-webview"
       + "|react-native-animatable"
     + ")/)",

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import WebView from 'react-native-webview';
 import { ActivityIndicator, Linking, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import ReactNativeVersion from 'react-native/Libraries/Core/ReactNativeVersion';
@@ -117,7 +117,7 @@ const Hcaptcha = ({
   );
 
   const generateTheWebViewContent = useMemo(
-    () => 
+    () =>
      `<!DOCTYPE html>
       <html>
       <head>

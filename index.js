@@ -1,31 +1,49 @@
-import React, { PureComponent } from 'react';
-import { SafeAreaView, StyleSheet, Dimensions, Platform } from 'react-native';
-import Modal from 'react-native-modal';
+import {BottomSheetBackdrop, BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
+import React, {createRef, PureComponent} from 'react';
+import {StyleSheet} from 'react-native';
 import Hcaptcha from './Hcaptcha';
 import PropTypes from 'prop-types';
 
-const { width, height } = Dimensions.get('window');
-
 class ConfirmHcaptcha extends PureComponent {
-  state = {
-    show: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.ref = createRef();
+  }
+
   show = () => {
-    this.setState({ show: true });
+    if (this.ref?.current) {
+      this.ref.current.present();
+    }
   };
+
   hide = (source) => {
     const { onMessage } = this.props;
-    this.setState({ show: false });
+
+    this.ref.current.close();
+
     if (source) { // if source === undefined => called by the user
       onMessage({ nativeEvent: { data: 'cancel' } });
     }
   };
+
+  renderBackdrop = (props) => {
+    if (this.props.hasBackdrop) {
+      return (
+          <BottomSheetBackdrop
+              {...props}
+              animatedIndex={{value: 1}}
+          />
+      );
+    }
+
+    return null;
+  };
+
   render() {
-    let { show } = this.state;
     let {
       size,
       siteKey,
-      passiveSiteKey,
       baseUrl,
       languageCode,
       orientation,
@@ -43,26 +61,15 @@ class ConfirmHcaptcha extends PureComponent {
       assethost,
       imghost,
       host,
-      hasBackdrop,
       debug,
     } = this.props;
 
     return (
-      <Modal
-        useNativeDriver
-        hideModalContentWhileAnimating
-        deviceHeight={height}
-        deviceWidth={width}
-        style={[styles.modal, {display: passiveSiteKey ? 'none' : undefined}]}
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        onBackdropPress={() => this.hide('backdrop')}
-        onBackButtonPress={() => this.hide('back_button')}
-        isVisible={show}
-        hasBackdrop={!passiveSiteKey && hasBackdrop}
-        coverScreen={!passiveSiteKey}
+      <BottomSheetModal
+          ref={this.ref}
+          backdropComponent={renderBackdrop}
       >
-        <SafeAreaView style={[styles.wrapper, hasBackdrop ? { backgroundColor } : {}]}>
+        <BottomSheetView>
           <Hcaptcha
             url={baseUrl}
             size={size}
@@ -85,8 +92,8 @@ class ConfirmHcaptcha extends PureComponent {
             orientation={orientation}
             debug={debug}
           />
-        </SafeAreaView>
-      </Modal>
+        </BottomSheetView>
+      </BottomSheetModal>
     );
   }
 }

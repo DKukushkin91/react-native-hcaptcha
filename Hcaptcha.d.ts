@@ -1,4 +1,4 @@
-import React from "react"
+import { Component } from 'react';
 import { StyleProp, ViewStyle } from "react-native";
 import { WebViewMessageEvent } from "react-native-webview";
 
@@ -92,4 +92,4 @@ type HcaptchaProps = {
   orientation?: 'portrait' | 'landscape';
 }
 
-export default class Hcaptcha extends React.Component<HcaptchaProps> {}
+export default class Hcaptcha extends Component<HcaptchaProps> {}
