@@ -65,52 +65,46 @@ class ConfirmHcaptcha extends PureComponent {
     } = this.props;
 
     return (
-      <BottomSheetModal
-          ref={this.ref}
-          backdropComponent={this.renderBackdrop}
-      >
-        <BottomSheetView>
-          <Hcaptcha
-            url={baseUrl}
-            size={size}
-            siteKey={siteKey}
-            onMessage={onMessage}
-            languageCode={languageCode}
-            showLoading={showLoading}
-            closableLoading={closableLoading}
-            loadingIndicatorColor={loadingIndicatorColor}
-            backgroundColor={backgroundColor}
-            theme={theme}
-            rqdata={rqdata}
-            sentry={sentry}
-            jsSrc={jsSrc}
-            endpoint={endpoint}
-            reportapi={reportapi}
-            assethost={assethost}
-            imghost={imghost}
-            host={host}
-            orientation={orientation}
-            debug={debug}
-          />
-        </BottomSheetView>
-      </BottomSheetModal>
+        <BottomSheetModal
+            ref={this.ref}
+            snapPoints={['80%']}
+            backdropComponent={this.renderBackdrop}
+        >
+          <BottomSheetView style={styles.wrapper}>
+            <Hcaptcha
+                url={baseUrl}
+                size={size}
+                siteKey={siteKey}
+                onMessage={onMessage}
+                languageCode={languageCode}
+                showLoading={showLoading}
+                closableLoading={closableLoading}
+                loadingIndicatorColor={loadingIndicatorColor}
+                backgroundColor={backgroundColor}
+                theme={theme}
+                rqdata={rqdata}
+                sentry={sentry}
+                jsSrc={jsSrc}
+                endpoint={endpoint}
+                reportapi={reportapi}
+                assethost={assethost}
+                imghost={imghost}
+                host={host}
+                orientation={orientation}
+                debug={debug}
+            />
+          </BottomSheetView>
+        </BottomSheetModal>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center',
-    marginTop: 10,
-  },
-  modal: { margin: 0, display: 'none' },
   wrapper: {
     flex: 1,
+    minHeight: 540,
+    paddingVertical: 16,
     justifyContent: 'center',
-    overflow: 'hidden',
   },
 });
 
@@ -145,7 +139,7 @@ ConfirmHcaptcha.defaultProps = {
   showLoading: false,
   closableLoading: false,
   orientation: 'portrait',
-  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  backgroundColor: 'rgba(255, 255, 255, 1)',
   loadingIndicatorColor: null,
   theme: 'light',
   rqdata: null,
